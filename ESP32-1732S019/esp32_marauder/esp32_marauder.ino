@@ -125,25 +125,20 @@ uint32_t currentTime  = 0;
 
 void backlightOn() {
   #ifdef HAS_SCREEN
-    #ifdef MARAUDER_MINI
-      digitalWrite(TFT_BL, LOW);
-    #endif
-  
-    #ifndef MARAUDER_MINI
-      digitalWrite(TFT_BL, HIGH);
-    #endif
+    // Initialize PWM if not already done
+    ledcSetup(0, 5000, 8); 
+    ledcAttachPin(TFT_BL, 0);
+    
+    // Set brightness (0-255). 
+    // 80 is ~30% brightness: Perfect for 400mAh battery life.
+    ledcWrite(0, 80); 
   #endif
 }
 
 void backlightOff() {
   #ifdef HAS_SCREEN
-    #ifdef MARAUDER_MINI
-      digitalWrite(TFT_BL, HIGH);
-    #endif
-  
-    #ifndef MARAUDER_MINI
-      digitalWrite(TFT_BL, LOW);
-    #endif
+    // Fully off
+    ledcWrite(0, 0); 
   #endif
 }
 
@@ -161,7 +156,7 @@ void setup()
   #endif
   
   #ifdef HAS_SCREEN
-    pinMode(TFT_BL, OUTPUT);
+ //   pinMode(TFT_BL, OUTPUT);
   #endif
   
   backlightOff();
