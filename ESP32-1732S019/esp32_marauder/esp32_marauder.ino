@@ -186,7 +186,9 @@ void setup()
   #endif
 
   Serial.begin(115200);
-
+  
+  setupIP5306();
+  
   while(!Serial)
     delay(10);
 
@@ -402,4 +404,19 @@ void loop()
   #else
     delay(50);
   #endif
+}
+#include <Wire.h>
+void setupIP5306() {
+  Wire.begin(21, 22); // Standard CYD I2C pins
+  
+  // Register 0x01: Sets charging current and shutdown behavior
+  // 0x01 (binary 00000001) = Lowest charge current + No auto-shutdown
+  Wire.beginTransmission(0x75);
+  Wire.write(0x01);
+  Wire.write(0x01); 
+  if (Wire.endTransmission() == 0) {
+    Serial.println("IP5306: Battery safety settings applied.");
+  } else {
+    Serial.println("IP5306: Failed to communicate (check I2C pins).");
+  }
 }
