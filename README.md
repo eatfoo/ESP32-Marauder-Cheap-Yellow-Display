@@ -1,5 +1,5 @@
 # ESP32 Marauder — Cheap Yellow Display
-
+2432S024C 400mAh battery. Not currently working
 <p align="center">
   <img alt="Marauder logo" src="https://github.com/Fr4nkFletcher/ESP32-Marauder-Cheap-Yellow-Display/blob/master/img/readme0.png" width="300">
 </p>
